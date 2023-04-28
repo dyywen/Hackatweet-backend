@@ -26,10 +26,10 @@ router.post('/signup', (req, res) => {
       const hash = bcrypt.hashSync(req.body.password, 10);
 
       const newUser = new User({
+        name: req.body.name,
         username: req.body.username,
         password: hash,
         token: uid2(32),
-        canBookmark: true,
       });
 
       newUser.save().then(newDoc => {
@@ -57,15 +57,6 @@ router.post('/signin', (req, res) => {
   });
 });
 
-// router.get('/canBookmark/:token', (req, res) => {
-//   User.findOne({ token: req.params.token }).then(data => {
-//     if (data) {
-//       res.json({ result: true, canBookmark: data.canBookmark });
-//     } else {
-//       res.json({ result: false, error: 'User not found' });
-//     }
-//   });
-// });
 
 module.exports = router;
 
